@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[定时任务@Scheduled]]></title>
+    <url>%2F2018%2F11%2F02%2F%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%40Scheduled%2F</url>
+    <content type="text"><![CDATA[1.开启定时任务123//需要在springboot启动类上加@EnableScheduling//开启定时任务@EnableAsync//异步事件处理，多线程并行执行 2.创建定时任务12345678910111213141516/* * * @Author luo * @Description 定时退房 * @Date 16:15 2018/11/1 */@Slf4j@Componentpublic class TimingCheckOutTask &#123; /** * 如果有退房申请 退房申请超过半个个小时还未处理，那么完成退房，更新入住下面的所有服务为完成，调清空入住信息接口 */ @Scheduled(cron = "0 0/30 * * * ? ") private void timingCheckOut() &#123; log.info("定时任务：退房申请超过半小时未处理自动退房……"); &#125;]]></content>
+      <categories>
+        <category>定时任务相关</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[mysql存储emoji]]></title>
     <url>%2F2018%2F11%2F02%2Fmysql%E5%AD%98%E5%82%A8emoji%2F</url>
     <content type="text"><![CDATA[2018-11-02更新在做留言处理的时候首先将数据库编码改为utf8mb4，字段用text或者longtext长文本。但是存emoji还是出现了问题，有办法，将客户端传来的参数加密放数据库，出来解密就行了。emoji解决。 如图：]]></content>
