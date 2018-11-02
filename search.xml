@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[关键词]]></title>
+    <url>%2F2018%2F11%2F02%2F%E5%85%B3%E9%94%AE%E8%AF%8D%2F</url>
+    <content type="text"><![CDATA[关键词1.死信队列 做 定时任务2.消息队列 保证 数据一致性3.运维中的日志切割操作梳理（Logrotate/python/shell脚本实现）]]></content>
+      <categories>
+        <category>关键词</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[定时任务@Scheduled]]></title>
     <url>%2F2018%2F11%2F02%2F%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%40Scheduled%2F</url>
     <content type="text"><![CDATA[1.开启定时任务123//需要在springboot启动类上加@EnableScheduling//开启定时任务@EnableAsync//异步事件处理，多线程并行执行 2.创建定时任务12345678910111213141516/* * * @Author luo * @Description 定时退房 * @Date 16:15 2018/11/1 */@Slf4j@Componentpublic class TimingCheckOutTask &#123; /** * 如果有退房申请 退房申请超过半个个小时还未处理，那么完成退房，更新入住下面的所有服务为完成，调清空入住信息接口 */ @Scheduled(cron = "0 0/30 * * * ? ") private void timingCheckOut() &#123; log.info("定时任务：退房申请超过半小时未处理自动退房……"); &#125;]]></content>
@@ -23,11 +31,6 @@
       <categories>
         <category>数据库相关</category>
       </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[关键词]]></title>
-    <url>%2F2018%2F11%2F01%2F%E5%85%B3%E9%94%AE%E8%AF%8D%2F</url>
-    <content type="text"><![CDATA[关键词121.死信队列 做 定时任务2.消息队列 保证 数据一致性]]></content>
   </entry>
   <entry>
     <title><![CDATA[to my]]></title>
