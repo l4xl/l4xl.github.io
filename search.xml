@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[关键词]]></title>
-    <url>%2F2018%2F11%2F02%2F%E5%85%B3%E9%94%AE%E8%AF%8D%2F</url>
-    <content type="text"><![CDATA[关键词1.死信队列 做 定时任务2.消息队列 保证 数据一致性3.运维中的日志切割操作梳理（Logrotate/python/shell脚本实现）]]></content>
+    <title><![CDATA[Linux logrotate日志切割]]></title>
+    <url>%2F2018%2F11%2F05%2FLinux%20logrotate%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2%2F</url>
+    <content type="text"><![CDATA[logrotare日志切割对于Linux服务器来说，每天都有很多日志文件生成，logrotate程序是Linux自带的，就是日志文件管理工具，用于分割日志文件，删除旧的日志文件，并创建新的日志文件，可以节省很多磁盘空间。 了解logrotate12root@iZwz9i9xmvw9w235xae84xZ:/# cd /etc/root@iZwz9i9xmvw9w235xae84xZ:/etc# ls 你会看到logrotate.conf 和 logrotate.d 这两个东西 在logrotate.conf中直接定义如何处理你的log文件，也可以在/logrotate.d/下面针对自己的log新建一个对应的文件来定义处理log的行为。 编写shell脚本在微服务中，有很多服务都要生成日志文件，一个个的去在/logrotate.d/ 去写处理log的行为文件很慢，所以在服务目录中写个脚本执行。如图： servers目录下有好几个服务，直接写个logrotate.sh脚本 脚本内容： 12345678910111213141516171819202122#!/bin/bash#方法一 在服务目录中创建nohup.bak目录用于存储切割日志dir=$(ls -l ./ |awk '/^d/ &#123;print $NF&#125;')for i in $dirdo echo $i cd $i mkdir -p nohup.bak cd .. echo "/opt/servers/$i/nohup.out &#123; rotate 10 daily copytruncate compress notifempty missingok dateext olddir /opt/servers/$i/nohup.bak &#125; "&gt; /etc/logrotate.d/$idone 解释： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980compress 通过gzip 压缩转储以后的日志nocompress 不做gzip压缩处理copytruncate 用于还在打开中的日志文件，把当前日志备份并截断；是先拷贝再清空的方式，拷贝和清空之间有一个时间差，可能会丢失部分日志数据。nocopytruncate 备份日志文件不过不截断create mode owner group 轮转时指定创建新文件的属性，如create 0777 nobody nobodynocreate 不建立新的日志文件delaycompress 和compress 一起使用时，转储的日志文件到下一次转储时才压缩nodelaycompress 覆盖 delaycompress 选项，转储同时压缩。missingok 如果日志丢失，不报错继续滚动下一个日志errors address 专储时的错误信息发送到指定的Email 地址ifempty 即使日志文件为空文件也做轮转，这个是logrotate的缺省选项。notifempty 当日志文件为空时，不进行轮转mail address 把转储的日志文件发送到指定的E-mail 地址nomail 转储时不发送日志文件olddir directory 转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统noolddir 转储后的日志文件和当前日志文件放在同一个目录下sharedscripts 运行postrotate脚本，作用是在所有日志都轮转后统一执行一次脚本。如果没有配置这个，那么每个日志轮转后都会执行一次脚本prerotate 在logrotate转储之前需要执行的指令，例如修改文件的属性等动作；必须独立成行postrotate 在logrotate转储之后需要执行的指令，例如重新启动 (kill -HUP) 某个服务！必须独立成行daily 指定转储周期为每天weekly 指定转储周期为每周monthly 指定转储周期为每月rotate count 指定日志文件删除之前转储的次数，0 指没有备份，5 指保留5 个备份dateext 使用当期日期作为命名格式dateformat .%s 配合dateext使用，紧跟在下一行出现，定义文件切割后的文件名，必须配合dateext使用，只支持 %Y %m %d %s 这四个参数size(或minsize) log-size 当日志文件到达指定的大小时才转储，log-size能指定bytes(缺省)及KB (sizek)或MB(sizem).当日志文件 &gt;= log-size 的时候就转储。 以下为合法格式：（其他格式的单位大小写没有试过）size = 5 或 size 5 （&gt;= 5 个字节就转储）size = 100k 或 size 100ksize = 100M 或 size 100M 执行脚本后去/etc/logrotate.d/里面去看，已经生成了处理log的行为文件，如图： 执行命令Logrotate是基于CRON来运行的，其脚本是/etc/cron.daily/logrotate，日志轮转是系统自动完成的。实际运行时，Logrotate会调用配置文件/etc/logrotate.conf。在/etc/logrotate.d目录里放置自定义好的配置文件，用来覆盖Logrotate的缺省值。如果等不及cron自动执行日志轮转，想手动强制切割日志，需要加-f参数；不过正式执行前最好通过Debug选项来验证一下（-d参数），这对调试也很重要。 1root@iZwz9i9xmvw9w235xae84xZ:/etc/logrotate.d# logrotate -d -f integrated_business_services logrotate命令格式： 123456logrotate [OPTION...] &lt;configfile&gt;-d, --debug ：debug模式，测试配置文件是否有错误。-f, --force ：强制转储文件。-m, --mail=command ：压缩日志后，发送日志到指定邮箱。-s, --state=statefile ：使用指定的状态文件。-v, --verbose ：显示转储过程。 查看各log文件的具体执行情况 12root@iZwz9i9xmvw9w235xae84xZ:/# cd /var/lib/logrotate/root@iZwz9i9xmvw9w235xae84xZ:/var/lib/logrotate# vi status 后面你将会看到被切割的日志：]]></content>
       <categories>
-        <category>关键词</category>
+        <category>Linux</category>
       </categories>
+      <tags>
+        <tag>Linux、logrotate</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[定时任务@Scheduled]]></title>
@@ -20,14 +23,6 @@
     <title><![CDATA[mysql存储emoji]]></title>
     <url>%2F2018%2F11%2F02%2Fmysql%E5%AD%98%E5%82%A8emoji%2F</url>
     <content type="text"><![CDATA[2018-11-02更新在做留言处理的时候首先将数据库编码改为utf8mb4，字段用text或者longtext长文本。但是存emoji还是出现了问题，有办法，将客户端传来的参数加密放数据库，出来解密就行了。emoji解决。 如图：]]></content>
-      <categories>
-        <category>数据库相关</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[mysql优化]]></title>
-    <url>%2F2018%2F11%2F02%2Fmysql%E4%BC%98%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[2018-11-02更新11.日期在mysql中采用timestamp更好]]></content>
       <categories>
         <category>数据库相关</category>
       </categories>
