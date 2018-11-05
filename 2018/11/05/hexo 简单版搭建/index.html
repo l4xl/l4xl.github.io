@@ -88,7 +88,7 @@
 <meta property="og:description" content="环境准备安装nodejs 1http://nodejs.cn/ 丢个链接自己装，傻瓜式安装 安装git 1https://git-scm.com/downloads 安装毫无技术含量 安装hexo 1234随便选个盘，这里我选择D盘，在里面创建一个Hexo文件夹（随便命名）。然后在Hexo文件夹中打开cmd安装hexo命令如下：	npm install -g hexo-cli 创建自己的初始版博客">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/blxcwzry.jpg?raw=true">
-<meta property="og:updated_time" content="2018-11-05T07:32:54.210Z">
+<meta property="og:updated_time" content="2018-11-05T07:40:15.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 简单版搭建">
 <meta name="twitter:description" content="环境准备安装nodejs 1http://nodejs.cn/ 丢个链接自己装，傻瓜式安装 安装git 1https://git-scm.com/downloads 安装毫无技术含量 安装hexo 1234随便选个盘，这里我选择D盘，在里面创建一个Hexo文件夹（随便命名）。然后在Hexo文件夹中打开cmd安装hexo命令如下：	npm install -g hexo-cli 创建自己的初始版博客">
@@ -379,7 +379,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/blxcwzry.jpg?raw=true" rel="gallery_cjo3znrup0002wovp9ye7zh3q" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/blxcwzry.jpg?raw=true" rel="gallery_cjo3zx7f000022ovpush9ipdb" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://github.com/l4xl/l4xlblogimg/blob/master/blxcwzry.jpg?raw=true" itemprop="contentUrl">
               </a>
             
@@ -405,25 +405,26 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
 <p>3.修改主题</p>
 <blockquote>
-<p>在 站点根目录/_congig.yml 文件中修改theme</p>
+<p>在 站点根目录/_config.yml 文件中修改theme</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
 <p>4.选择next主题风格</p>
 <blockquote>
-<p>在 站点根目录/themes/next/_congig.yml 文件中修改scheme，我选择的Muse，推荐</p>
+<p>在 站点根目录/themes/next/_config.yml 文件中修改scheme，我选择的Muse，推荐</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</span><br><span class="line">Mist - Muse 的紧凑版本，整洁有序的单栏外观</span><br><span class="line">Pisces - 双栏 Scheme，小家碧玉似的清新</span><br></pre></td></tr></table></figure>
-<p>​    放开一些基本菜单节点：</p>
+<p>​    扎到menu放开一些基本菜单节点：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#home 主页 about 关于我 categories 分类 archives 归档</span><br><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  about: /about/ || user</span><br><span class="line">  #tags: /tags/ || tags</span><br><span class="line">  categories: /categories/ || th</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  #schedule: /schedule/ || calendar</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap</span><br><span class="line">  #commonweal: /404/ || heartbeat</span><br></pre></td></tr></table></figure>
-<p>​    设置首页博客自动收缩，有“阅读全文”：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Automatically scroll page to section which is under &lt;!-- more --&gt; mark.</span><br><span class="line">scroll_to_more: false</span><br><span class="line"></span><br><span class="line"># Automatically saving scroll position on each post/page in cookies.</span><br><span class="line">save_scroll: false</span><br><span class="line"></span><br><span class="line"># Automatically excerpt description in homepage as preamble text.</span><br><span class="line">excerpt_description: true</span><br></pre></td></tr></table></figure>
+<p>​    找到scroll_to_more设置首页博客不展示更多，即自动收缩，有“阅读全文”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Automatically scroll page to section which is under &lt;!-- more --&gt; mark.</span><br><span class="line">scroll_to_more: false</span><br></pre></td></tr></table></figure>
 <p>5.博客基础设置</p>
 <blockquote>
 <p>在 站点根目录/_congig.yml 文件中修改</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Site title为博客名 subtitle为博客副标题 description为描述 keywords为关键字 author为博客作者 language选择 zh-Hans 为中文 时区不用，默认</span><br><span class="line">title: L4XL </span><br><span class="line">subtitle: 世间名字万万个，唯有你的最动人</span><br><span class="line">description:</span><br><span class="line">keywords:</span><br><span class="line">author: L4XL</span><br><span class="line">language: zh-Hans</span><br><span class="line">timezone:</span><br></pre></td></tr></table></figure>
 <p>5.部署</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  //清除缓存</span><br><span class="line">hexo g  //重新生成代码</span><br><span class="line">hexo s  //部署到本地</span><br><span class="line"></span><br><span class="line">//然后打开浏览器访问 localhost:4000 查看效果</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean  //清除缓存</span><br><span class="line">hexo g  //重新生成代码</span><br><span class="line">hexo s  //部署到本地</span><br></pre></td></tr></table></figure>
+<p>然后打开浏览器访问 localhost:4000 查看效果，主题已有。</p>
 <h1 id="从本地迁移到github存储"><a href="#从本地迁移到github存储" class="headerlink" title="从本地迁移到github存储"></a>从本地迁移到github存储</h1><p>1.注册github账户</p>
 <p>2.创建一个新项目</p>
 <p><img src="https://github.com/l4xl/l4xlblogimg/blob/master/hexo1.png?raw=true" alt=""></p>
@@ -444,7 +445,7 @@
 <p>7.然后在终端迁移到github</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <p>8.访问<a href="https://l4xl.github.io">https://l4xl.github.io</a></p>
-<p>9.后续发布文章、创建关于我、搜索功能、文章中图片摘要等等百度或者问<a href="mailto:gaocent@163.com" target="_blank" rel="noopener">gaocent@163.com</a></p>
+<p>9.后续博客背景、发布文章、创建关于我、搜索功能、文章中图片摘要等等百度或者问<a href="mailto:gaocent@163.com" target="_blank" rel="noopener">gaocent@163.com</a></p>
 
       
     </div>
