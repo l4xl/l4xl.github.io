@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Synchronized,">
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="L4XL">
-<meta property="og:url" content="https://l4xl.github.io/archives/2018/10/index.html">
+<meta name="description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
+<meta name="keywords" content="Synchronized">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Synchronized对象锁的一个优化细节">
+<meta property="og:url" content="https://l4xl.github.io/2018/11/07/使用Synchronized对象锁的一个优化细节/index.html">
 <meta property="og:site_name" content="L4XL">
+<meta property="og:description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true">
+<meta property="og:updated_time" content="2018-11-07T04:22:24.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="L4XL">
+<meta name="twitter:title" content="使用Synchronized对象锁的一个优化细节">
+<meta name="twitter:description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
+<meta name="twitter:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://l4xl.github.io/archives/2018/10/">
+  <link rel="canonical" href="https://l4xl.github.io/2018/11/07/使用Synchronized对象锁的一个优化细节/">
 
 
 
 
 
-  <title>归档 | L4XL</title>
+  <title>使用Synchronized对象锁的一个优化细节 | L4XL</title>
   
 
 
@@ -140,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -266,72 +273,201 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 7 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://l4xl.github.io/2018/11/07/使用Synchronized对象锁的一个优化细节/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="L4XL">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="L4XL">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/10/31/to my/" itemprop="url">
-              
-                <span itemprop="name">to my</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">使用Synchronized对象锁的一个优化细节</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-10-31T17:52:37+08:00" content="2018-10-31">
-          10-31
-        </time>
-      </div>
+        <div class="post-meta">
+		
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-07T10:23:00+08:00">
+                2018-11-07
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/锁/" itemprop="url" rel="index">
+                    <span itemprop="name">锁</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
+        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" rel="gallery_cjo6nqo4d0008p4vpnne4ermc" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" itemprop="contentUrl">
+              </a>
+            
+          
 
+          
+          </div>
+        </div>
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>大家在使用 synchronized 关键字的时候，可能经常会这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronized (this) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Demo &#123;</span><br><span class="line">    private final Object lock = new Object();</span><br><span class="line"></span><br><span class="line">    public void methonA() &#123;</span><br><span class="line">      synchronized (lock) &#123;</span><br><span class="line">        ...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样写没问题。但是用 new Object() 作为锁对象是否是一个最佳选择呢？于是我好奇的搜索了一下，发现了这么一篇文章：<a href="https://stackoverflow.com/questions/2120437/object-vs-byte0-as-lock" target="_blank" rel="noopener">object-vs-byte0-as-lock</a>，大意就是用 new byte[0] 作为锁对象更好，会减少字节码操作的次数。由于这篇文章已经比较老了，为了确定到底如何，我还是决定手动验证一下。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先，我写了两个非常简单的 java 类作为 Demo 使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Demo.java</span><br><span class="line">public class Demo &#123;</span><br><span class="line">    private final Object lock = new Object();</span><br><span class="line">&#125;</span><br><span class="line">// Demo_2.java</span><br><span class="line">public class Demo_2 &#123;</span><br><span class="line">    private final byte[] lock = new byte[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我电脑上 java 的版本是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_91&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_91-b14)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)</span><br></pre></td></tr></table></figure>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p>首先，要验证一下编译成 JVM 字节码是不是真的如上文所述。于是分别编译出两个 java 文件的 class 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac Demo.java</span><br><span class="line">javac Demo_2.java</span><br></pre></td></tr></table></figure>
+<p>然后使用 javap 命令查看 Demo 的字节码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">▶ javap -c Demo</span><br><span class="line">Compiled from &quot;Demo.java&quot;</span><br><span class="line">public class Demo &#123;</span><br><span class="line">  public Demo();</span><br><span class="line">    Code:</span><br><span class="line">       0: aload_0</span><br><span class="line">       1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">       4: aload_0</span><br><span class="line">       5: new           #2                  // class java/lang/Object</span><br><span class="line">       8: dup</span><br><span class="line">       9: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">      12: putfield      #3                  // Field lock:Ljava/lang/Object;</span><br><span class="line">      15: return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再查看 Demo_2 的字节码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">▶ javap -c Demo_2</span><br><span class="line">Compiled from &quot;Demo_2.java&quot;</span><br><span class="line">public class Demo_2 &#123;</span><br><span class="line">  public Demo_2();</span><br><span class="line">    Code:</span><br><span class="line">       0: aload_0</span><br><span class="line">       1: invokespecial #1                  // Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">       4: aload_0</span><br><span class="line">       5: iconst_0</span><br><span class="line">       6: newarray       byte</span><br><span class="line">       8: putfield      #2                  // Field lock:[B</span><br><span class="line">      11: return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，new byte[0] 确实比 new Object() 少 4 条字节码操作。再计算一下内存占用，参考 <a href="https://www.liaohuqiu.net/cn/posts/caculate-object-size-in-java/" target="_blank" rel="noopener">JAVA 对象大小</a>一文可以计算出：在 64 位 jvm 默认开启 UseCompressedOops 的情况下（Java 1.6.0_23 版本开始就默认开启了），一个空对象，不包含任何成员变量，大小 16 字节，一个 byte[0] 数组，大小也是 16 字节，是相等的。</p>
+<p>于是验证了上面的结论：用 new byte[0] 作为锁对象是优于 new Object() 的。在日常的 java 开发中，可以注意到这个细节的点来优化代码。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>验证了在 jvm 下用 new byte[0] 作为锁对象是更好的选择，也了解了 java 对象的内存占用。</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Synchronized/" rel="tag"># Synchronized</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/07/常见性能优化策略的总结/" rel="next" title="常见性能优化策略的总结">
+                <i class="fa fa-chevron-left"></i> 常见性能优化策略的总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -339,6 +475,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -359,8 +499,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -420,6 +569,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM"><span class="nav-number">3.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -562,6 +727,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
