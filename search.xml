@@ -20,6 +20,7 @@
       </categories>
       <tags>
         <tag>Synchronized</tag>
+        <tag>锁</tag>
       </tags>
   </entry>
   <entry>
@@ -31,6 +32,9 @@
       </categories>
       <tags>
         <tag>性能优化</tag>
+        <tag>SQL调优</tag>
+        <tag>JVM调优</tag>
+        <tag>NoSQL调优</tag>
       </tags>
   </entry>
   <entry>
@@ -52,7 +56,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Linux、logrotate</tag>
+        <tag>Linux</tag>
+        <tag>logrotate</tag>
       </tags>
   </entry>
   <entry>
@@ -62,6 +67,10 @@
       <categories>
         <category>定时任务相关</category>
       </categories>
+      <tags>
+        <tag>Scheduled</tag>
+        <tag>定时任务</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[mysql存储emoji]]></title>
@@ -70,6 +79,10 @@
       <categories>
         <category>数据库相关</category>
       </categories>
+      <tags>
+        <tag>mysql</tag>
+        <tag>emoji</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[to my]]></title>

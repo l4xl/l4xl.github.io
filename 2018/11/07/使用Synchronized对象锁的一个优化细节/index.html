@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Synchronized,">
+  <meta name="keywords" content="Synchronized,锁,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
-<meta name="keywords" content="Synchronized">
+<meta name="keywords" content="Synchronized,锁">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Synchronized对象锁的一个优化细节">
 <meta property="og:url" content="https://l4xl.github.io/2018/11/07/使用Synchronized对象锁的一个优化细节/index.html">
@@ -88,7 +88,7 @@
 <meta property="og:description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true">
-<meta property="og:updated_time" content="2018-11-07T04:22:24.418Z">
+<meta property="og:updated_time" content="2018-11-07T07:03:19.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Synchronized对象锁的一个优化细节">
 <meta name="twitter:description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
@@ -389,7 +389,7 @@
           
           
             <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" rel="gallery_cjo6t8xj3000c00vpfcvwholn" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
+              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" rel="gallery_cjo6tig0f000amsvpgegp7jto" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" itemprop="contentUrl">
               </a>
             
@@ -437,6 +437,8 @@
         <div class="post-tags">
           
             <a href="/tags/Synchronized/" rel="tag"># Synchronized</a>
+          
+            <a href="/tags/锁/" rel="tag"># 锁</a>
           
         </div>
       
@@ -559,10 +561,10 @@
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">5</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
