@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java命令,">
+  <meta name="keywords" content="java,">
 
 
 
@@ -80,19 +80,17 @@
 
 
 <meta name="description" content="javac 编译123456789101112131415161718192021222324252627282930313233用法: javac &amp;lt;options&amp;gt; &amp;lt;source files&amp;gt;其中, 可能的选项包括:  -g                         生成所有调试信息  -g:none                    不生成任何调试信息">
-<meta name="keywords" content="Java命令">
+<meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java javac javap">
 <meta property="og:url" content="https://l4xl.github.io/2018/11/07/java javac javap/index.html">
 <meta property="og:site_name" content="L4XL">
 <meta property="og:description" content="javac 编译123456789101112131415161718192021222324252627282930313233用法: javac &amp;lt;options&amp;gt; &amp;lt;source files&amp;gt;其中, 可能的选项包括:  -g                         生成所有调试信息  -g:none                    不生成任何调试信息">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/ssxssbtl.jpg?raw=true">
-<meta property="og:updated_time" content="2018-11-07T04:59:26.023Z">
+<meta property="og:updated_time" content="2018-11-22T07:10:39.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java javac javap">
 <meta name="twitter:description" content="javac 编译123456789101112131415161718192021222324252627282930313233用法: javac &amp;lt;options&amp;gt; &amp;lt;source files&amp;gt;其中, 可能的选项包括:  -g                         生成所有调试信息  -g:none                    不生成任何调试信息">
-<meta name="twitter:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/ssxssbtl.jpg?raw=true">
 
 
 
@@ -385,20 +383,6 @@
 
       
       
-        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/ssxssbtl.jpg?raw=true" rel="gallery_cjos96c3s0005tcvptwg4ca5y" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://github.com/l4xl/l4xlblogimg/blob/master/ssxssbtl.jpg?raw=true" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
 
       
         <h3 id="javac-编译"><a href="#javac-编译" class="headerlink" title="javac 编译"></a>javac 编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">用法: javac &lt;options&gt; &lt;source files&gt;</span><br><span class="line">其中, 可能的选项包括:</span><br><span class="line">  -g                         生成所有调试信息</span><br><span class="line">  -g:none                    不生成任何调试信息</span><br><span class="line">  -g:&#123;lines,vars,source&#125;     只生成某些调试信息</span><br><span class="line">  -nowarn                    不生成任何警告</span><br><span class="line">  -verbose                   输出有关编译器正在执行的操作的消息</span><br><span class="line">  -deprecation               输出使用已过时的 API 的源位置</span><br><span class="line">  -classpath &lt;路径&gt;            指定查找用户类文件和注释处理程序的位置</span><br><span class="line">  -cp &lt;路径&gt;                   指定查找用户类文件和注释处理程序的位置</span><br><span class="line">  -sourcepath &lt;路径&gt;           指定查找输入源文件的位置</span><br><span class="line">  -bootclasspath &lt;路径&gt;        覆盖引导类文件的位置</span><br><span class="line">  -extdirs &lt;目录&gt;              覆盖所安装扩展的位置</span><br><span class="line">  -endorseddirs &lt;目录&gt;         覆盖签名的标准路径的位置</span><br><span class="line">  -proc:&#123;none,only&#125;          控制是否执行注释处理和/或编译。</span><br><span class="line">  -processor &lt;class1&gt;[,&lt;class2&gt;,&lt;class3&gt;...] 要运行的注释处理程序的名称; 绕过默认的搜索进程</span><br><span class="line">  -processorpath &lt;路径&gt;        指定查找注释处理程序的位置</span><br><span class="line">  -parameters                生成元数据以用于方法参数的反射</span><br><span class="line">  -d &lt;目录&gt;                    指定放置生成的类文件的位置</span><br><span class="line">  -s &lt;目录&gt;                    指定放置生成的源文件的位置</span><br><span class="line">  -h &lt;目录&gt;                    指定放置生成的本机标头文件的位置</span><br><span class="line">  -implicit:&#123;none,class&#125;     指定是否为隐式引用文件生成类文件</span><br><span class="line">  -encoding &lt;编码&gt;             指定源文件使用的字符编码</span><br><span class="line">  -source &lt;发行版&gt;              提供与指定发行版的源兼容性</span><br><span class="line">  -target &lt;发行版&gt;              生成特定 VM 版本的类文件</span><br><span class="line">  -profile &lt;配置文件&gt;            请确保使用的 API 在指定的配置文件中可用</span><br><span class="line">  -version                   版本信息</span><br><span class="line">  -help                      输出标准选项的提要</span><br><span class="line">  -A关键字[=值]                  传递给注释处理程序的选项</span><br><span class="line">  -X                         输出非标准选项的提要</span><br><span class="line">  -J&lt;标记&gt;                     直接将 &lt;标记&gt; 传递给运行时系统</span><br><span class="line">  -Werror                    出现警告时终止编译</span><br><span class="line">  @&lt;文件名&gt;                     从文件读取选项和文件名</span><br></pre></td></tr></table></figure>
@@ -421,7 +405,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java命令/" rel="tag"># Java命令</a>
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -523,7 +507,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -545,7 +529,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

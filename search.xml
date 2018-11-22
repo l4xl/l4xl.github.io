@@ -5,22 +5,10 @@
     <url>%2F2018%2F11%2F22%2Fmybatis%20plus%20%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%EF%BC%88%E7%AE%80%E7%89%88%EF%BC%89%2F</url>
     <content type="text"><![CDATA[说明：代码自动生成工具被封装成了工具库jar的一部分，在本地maven私服里，在其他项目中引入 12345678910111213141516&lt;dependency&gt; &lt;groupId&gt;com.aichengyi&lt;/groupId&gt; &lt;artifactId&gt;tool_magazine&lt;/artifactId&gt; &lt;version&gt;1.0.3&lt;/version&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt; &lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;mysql&lt;/groupId&gt; &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt; &lt;version&gt;$&#123;mysql.version&#125;&lt;/version&gt; &lt;/dependency&gt; 就可以使用，使用方法 123456789101112131415161718192021222324import com.aichengyi.config.CodeGeneratorConfig;import com.aichengyi.util.CodeGeneratorUtil;/** * 类标题：代码自动生成 * 类说明： * * @author luo * @date 2018/11/22 */public class CodeGen &#123; public static void main(String[] args) &#123; CodeGeneratorConfig config = new CodeGeneratorConfig(); //url config.setUrl("jdbc:mysql://ip:3306/db_name"); //包含的表 config.setInclude(new String[]&#123;"t_xx","t_xxx"&#125;); //项目绝对路径 config.setProjectPath("xxx"); config.setAuthor("zz"); CodeGeneratorUtil.generate(config); &#125;&#125; 完善一下： 123456789#将生成的xml拖到resources/mapper目录下#项目启动类加@MapperScan("com.aichengyi.mapper")#项目配置yml mybatis-plus: type-aliases-package: com.aichengyi.pojo.dbo mapper-locations: classpath:mapper/*.xml executor-type: simple #检查 mybatis 配置是否存在，一般命名为 mybatis-config.mapper check-config-location: false 工具封装的原理如下：一、引入依赖12345678910&lt;dependency&gt; &lt;groupId&gt;com.baomidou&lt;/groupId&gt; &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt; &lt;version&gt;3.0.1&lt;/version&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;org.freemarker&lt;/groupId&gt; &lt;artifactId&gt;freemarker&lt;/artifactId&gt; &lt;version&gt;2.3.28&lt;/version&gt;&lt;/dependency&gt; 二、配置123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104import java.util.Arrays;public class CodeGeneratorConfig &#123; private String url; private String driverName = "com.mysql.jdbc.Driver"; private String username = "root"; private String password = "root"; private String tablePreFix = "t_"; private String[] include; private String parent = "com.aichengyi"; private String projectPath; private String author; public CodeGeneratorConfig() &#123; &#125; public CodeGeneratorConfig(String url, String driverName, String username, String password, String tablePreFix, String[] include, String parent, String projectPath, String author) &#123; this.url = url; this.driverName = driverName; this.username = username; this.password = password; this.tablePreFix = tablePreFix; this.include = include; this.parent = parent; this.projectPath = projectPath; this.author = author; &#125; public String getUrl() &#123; return this.url; &#125; public void setUrl(String url) &#123; this.url = url; &#125; public String getDriverName() &#123; return this.driverName; &#125; public void setDriverName(String driverName) &#123; this.driverName = driverName; &#125; public String getUsername() &#123; return this.username; &#125; public void setUsername(String username) &#123; this.username = username; &#125; public String getPassword() &#123; return this.password; &#125; public void setPassword(String password) &#123; this.password = password; &#125; public String getTablePreFix() &#123; return this.tablePreFix; &#125; public void setTablePreFix(String tablePreFix) &#123; this.tablePreFix = tablePreFix; &#125; public String[] getInclude() &#123; return this.include; &#125; public void setInclude(String[] include) &#123; this.include = include; &#125; public String getProjectPath() &#123; return this.projectPath; &#125; public void setProjectPath(String projectPath) &#123; this.projectPath = projectPath; &#125; public String getParent() &#123; return this.parent; &#125; public void setParent(String parent) &#123; this.parent = parent; &#125; public String getAuthor() &#123; return this.author; &#125; public void setAuthor(String author) &#123; this.author = author; &#125; public String toString() &#123; return "CodeGeneratorConfig&#123;url='" + this.url + '\'' + ", driverName='" + this.driverName + '\'' + ", username='" + this.username + '\'' + ", password='" + this.password + '\'' + ", tablePreFix='" + this.tablePreFix + '\'' + ", include=" + Arrays.toString(this.include) + ", parent='" + this.parent + '\'' + ", projectPath='" + this.projectPath + '\'' + ", author='" + this.author + '\'' + '&#125;'; &#125;&#125; 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657import com.baomidou.mybatisplus.annotation.DbType;import com.baomidou.mybatisplus.generator.AutoGenerator;import com.baomidou.mybatisplus.generator.config.DataSourceConfig;import com.baomidou.mybatisplus.generator.config.GlobalConfig;import com.baomidou.mybatisplus.generator.config.PackageConfig;import com.baomidou.mybatisplus.generator.config.StrategyConfig;import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;public class CodeGeneratorUtil &#123; public CodeGeneratorUtil() &#123; &#125; public static void generate(CodeGeneratorConfig cgc) &#123; DataSourceConfig dsc = new DataSourceConfig(); dsc.setDbQuery(new MySqlQuery()); dsc.setDbType(DbType.MYSQL); dsc.setTypeConvert(new MySqlTypeConvert()); dsc.setUrl(cgc.getUrl()); dsc.setDriverName(cgc.getDriverName()); dsc.setUsername(cgc.getUsername()); dsc.setPassword(cgc.getPassword()); StrategyConfig sc = new StrategyConfig(); sc.setNaming(NamingStrategy.underline_to_camel); sc.setColumnNaming(NamingStrategy.underline_to_camel); sc.setTablePrefix(new String[]&#123;cgc.getTablePreFix()&#125;); sc.setEntityBooleanColumnRemoveIsPrefix(true); sc.setRestControllerStyle(true); sc.setControllerMappingHyphenStyle(true); sc.setInclude(cgc.getInclude()); PackageConfig pc = new PackageConfig(); pc.setParent(cgc.getParent()); pc.setEntity("pojo.dbo"); GlobalConfig gc = new GlobalConfig(); gc.setOutputDir(cgc.getProjectPath() + "/src/main/java"); gc.setFileOverride(true); gc.setOpen(false); gc.setAuthor(cgc.getAuthor()); gc.setBaseColumnList(true); gc.setBaseResultMap(true); gc.setEntityName("%sDBO"); gc.setMapperName("%sDao"); gc.setControllerName("%sController"); gc.setServiceName("%sService"); gc.setServiceImplName("%sServiceImpl"); gc.setXmlName("%sDao"); AutoGenerator mpg = new AutoGenerator(); mpg.setDataSource(dsc); mpg.setPackageInfo(pc); mpg.setStrategy(sc); mpg.setGlobalConfig(gc); mpg.setTemplateEngine(new VelocityTemplateEngine()); mpg.execute(); &#125;&#125;]]></content>
       <categories>
-        <category>orm</category>
+        <category>mybatis</category>
       </categories>
       <tags>
         <tag>mybatis-plus</tag>
-        <tag>代码自动生成</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Ubuntu创建用户并分组赋权]]></title>
-    <url>%2F2018%2F11%2F20%2FUbuntu%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E5%88%86%E7%BB%84%E8%B5%8B%E6%9D%83%2F</url>
-    <content type="text"><![CDATA[我这里的用户赋权方案是：运维组+普通用户组。运维组有所在项目的root权限，普通用户有所在项目的读权限。 一、创建用户组用户组相关命令说明 123groupadd group_name 创建一个新用户组 groupdel group_name 删除一个用户组 groupmod -n new_group_name old_group_name 重命名一个用户组 1.创建用户组：运维组、普通用户组(酒店项目为例) 12[root@localhost /]# groupadd hotel_ops[root@localhost /]# groupadd hotel_normal 临时有事，暂未完结！！！]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -28,11 +16,11 @@
     <url>%2F2018%2F11%2F16%2FUbuntu%E4%BD%BF%E7%94%A8nexus%E6%90%AD%E5%BB%BAmaven%E6%9C%AC%E5%9C%B0%E7%A7%81%E6%9C%8D%2F</url>
     <content type="text"><![CDATA[一、安装nexus1.下载1[root@localhost /]# wget https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.14.5-02-bundle.tar.gz 2.解压123[root@localhost /]# mv nexus-2.14.5-02-bundle.tar.gz /usr/local/[root@localhost /]# cd /usr/local/[root@localhost local]# tar -zxvf nexus-2.14.5-02-bundle.tar.gz 解压后得到两个文件夹nexus-2.14.5-02和sonatype-work 3.配置①配置账户 1[root@localhost /]# vim /usr/local/nexus-2.14.5-02/bin/nexus 修改 1RUN_AS_USER=root ②配置端口：默认端口是8081，可能冲突，修改下 12[root@localhost /]# cd /usr/local/nexus-2.14.5-02/conf/[root@localhost conf]# vim nexus.properties 修改 1234#端口号application-port=9001#ipapplication-host=0.0.0.0 ③配置开机启动 1[root@localhost /]# vim /etc/rc.local 输入 12/usr/local/nexus-2.14.5-02/bin/nexus startexit 0 ④设置系统变量 1[root@localhost /]# vim /etc/profile 输入 1export RUN_AS_USER=root 4.启动①先更新配置文件 1[root@localhost etc]# . profile ②后启动 12[root@localhost /]# /usr/local/nexus-2.14.5-02/bin/[root@localhost bin]# ./nexus start 5.查看仓库我的是 http:192.168.5.102:9001/nexus 默认账户admin 密码admin123 也可以自己修改 二、使用仓库（简单）1.配置pom一般是对自己写的库打包成jar丢到maven私服上，在maven项目的pom里添加 12345678910111213141516171819202122232425262728293031323334353637383940&lt;distributionManagement&gt; &lt;repository&gt; &lt;id&gt;nexus-releases&lt;/id&gt; &lt;name&gt;Nexus Release Repository&lt;/name&gt; &lt;url&gt;http://192.168.5.102:9001/nexus/content/repositories/releases/&lt;/url&gt; &lt;/repository&gt; &lt;snapshotRepository&gt; &lt;id&gt;nexus-snapshots&lt;/id&gt; &lt;name&gt;Nexus Snapshot Repository&lt;/name&gt; &lt;url&gt;http://192.168.5.102:9001/nexus/content/repositories/snapshots/&lt;/url&gt; &lt;/snapshotRepository&gt; &lt;/distributionManagement&gt; &lt;repositories&gt; &lt;repository&gt; &lt;id&gt;nexus&lt;/id&gt; &lt;name&gt;Nexus Repository&lt;/name&gt; &lt;url&gt;http://192.168.5.102:9001/nexus/content/groups/public/&lt;/url&gt; &lt;releases&gt; &lt;enabled&gt;true&lt;/enabled&gt; &lt;/releases&gt; &lt;snapshots&gt; &lt;enabled&gt;true&lt;/enabled&gt; &lt;/snapshots&gt; &lt;/repository&gt; &lt;/repositories&gt; &lt;pluginRepositories&gt; &lt;pluginRepository&gt; &lt;id&gt;nexus&lt;/id&gt; &lt;name&gt;Nexus Repository&lt;/name&gt; &lt;url&gt;http://192.168.5.102:9001/nexus/content/groups/public/&lt;/url&gt; &lt;releases&gt; &lt;enabled&gt;true&lt;/enabled&gt; &lt;/releases&gt; &lt;snapshots&gt; &lt;enabled&gt;true&lt;/enabled&gt; &lt;/snapshots&gt; &lt;/pluginRepository&gt; &lt;/pluginRepositories&gt; 2.修改maven配置修改当前要打包jar上传私服的maven配置settings.xml 123456789101112&lt;servers&gt; &lt;server&gt; &lt;id&gt;nexus-releases&lt;/id&gt; &lt;username&gt;admin&lt;/username&gt; &lt;password&gt;admin123&lt;/password&gt; &lt;/server&gt; &lt;server&gt; &lt;id&gt;nexus-snapshots&lt;/id&gt; &lt;username&gt;admin&lt;/username&gt; &lt;password&gt;admin123&lt;/password&gt; &lt;/server&gt; &lt;/servers&gt; 3.maven deploy打包如果打包失败，maven deploy里面设置启动参数 -X 是打印出详细信息，有异常就根据异常信息去解决就行了…… 1deploy -X -f pom.xml 4.然后你就会在 http:192.168.5.102:9001/nexus Public Repositories 和 Releases 里看到打包的jar了。]]></content>
       <categories>
-        <category>Linux</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
-        <tag>Ubuntu</tag>
+        <tag>linux</tag>
+        <tag>ubuntu</tag>
         <tag>nexus</tag>
         <tag>maven</tag>
       </tags>
@@ -45,7 +33,7 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>Java命令</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -90,10 +78,10 @@
     <url>%2F2018%2F11%2F05%2FLinux%20logrotate%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2%2F</url>
     <content type="text"><![CDATA[logrotare日志切割对于Linux服务器来说，每天都有很多日志文件生成，logrotate程序是Linux自带的，就是日志文件管理工具，用于分割日志文件，删除旧的日志文件，并创建新的日志文件，可以节省很多磁盘空间。 了解logrotate12root@iZwz9i9xmvw9w235xae84xZ:/# cd /etc/root@iZwz9i9xmvw9w235xae84xZ:/etc# ls 你会看到logrotate.conf 和 logrotate.d 这两个东西 在logrotate.conf中直接定义如何处理你的log文件，也可以在/logrotate.d/下面针对自己的log新建一个对应的文件来定义处理log的行为。 编写shell脚本在微服务中，有很多服务都要生成日志文件，一个个的去在/logrotate.d/ 去写处理log的行为文件很慢，所以在服务目录中写个脚本执行。如图： servers目录下有好几个服务，直接写个logrotate.sh脚本 脚本内容： 12345678910111213141516171819202122#!/bin/bash#方法一 在服务目录中创建nohup.bak目录用于存储切割日志dir=$(ls -l ./ |awk '/^d/ &#123;print $NF&#125;')for i in $dirdo echo $i cd $i mkdir -p nohup.bak cd .. echo "/opt/servers/$i/nohup.out &#123; rotate 10 daily copytruncate compress notifempty missingok dateext olddir /opt/servers/$i/nohup.bak &#125; "&gt; /etc/logrotate.d/$idone 解释： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980compress 通过gzip 压缩转储以后的日志nocompress 不做gzip压缩处理copytruncate 用于还在打开中的日志文件，把当前日志备份并截断；是先拷贝再清空的方式，拷贝和清空之间有一个时间差，可能会丢失部分日志数据。nocopytruncate 备份日志文件不过不截断create mode owner group 轮转时指定创建新文件的属性，如create 0777 nobody nobodynocreate 不建立新的日志文件delaycompress 和compress 一起使用时，转储的日志文件到下一次转储时才压缩nodelaycompress 覆盖 delaycompress 选项，转储同时压缩。missingok 如果日志丢失，不报错继续滚动下一个日志errors address 专储时的错误信息发送到指定的Email 地址ifempty 即使日志文件为空文件也做轮转，这个是logrotate的缺省选项。notifempty 当日志文件为空时，不进行轮转mail address 把转储的日志文件发送到指定的E-mail 地址nomail 转储时不发送日志文件olddir directory 转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统noolddir 转储后的日志文件和当前日志文件放在同一个目录下sharedscripts 运行postrotate脚本，作用是在所有日志都轮转后统一执行一次脚本。如果没有配置这个，那么每个日志轮转后都会执行一次脚本prerotate 在logrotate转储之前需要执行的指令，例如修改文件的属性等动作；必须独立成行postrotate 在logrotate转储之后需要执行的指令，例如重新启动 (kill -HUP) 某个服务！必须独立成行daily 指定转储周期为每天weekly 指定转储周期为每周monthly 指定转储周期为每月rotate count 指定日志文件删除之前转储的次数，0 指没有备份，5 指保留5 个备份dateext 使用当期日期作为命名格式dateformat .%s 配合dateext使用，紧跟在下一行出现，定义文件切割后的文件名，必须配合dateext使用，只支持 %Y %m %d %s 这四个参数size(或minsize) log-size 当日志文件到达指定的大小时才转储，log-size能指定bytes(缺省)及KB (sizek)或MB(sizem).当日志文件 &gt;= log-size 的时候就转储。 以下为合法格式：（其他格式的单位大小写没有试过）size = 5 或 size 5 （&gt;= 5 个字节就转储）size = 100k 或 size 100ksize = 100M 或 size 100M 执行脚本后去/etc/logrotate.d/里面去看，已经生成了处理log的行为文件，如图： 执行命令Logrotate是基于CRON来运行的，其脚本是/etc/cron.daily/logrotate，日志轮转是系统自动完成的。实际运行时，Logrotate会调用配置文件/etc/logrotate.conf。在/etc/logrotate.d目录里放置自定义好的配置文件，用来覆盖Logrotate的缺省值。如果等不及cron自动执行日志轮转，想手动强制切割日志，需要加-f参数；不过正式执行前最好通过Debug选项来验证一下（-d参数），这对调试也很重要。 1root@iZwz9i9xmvw9w235xae84xZ:/etc/logrotate.d# logrotate -d -f integrated_business_services logrotate命令格式： 123456logrotate [OPTION...] &lt;configfile&gt;-d, --debug ：debug模式，测试配置文件是否有错误。-f, --force ：强制转储文件。-m, --mail=command ：压缩日志后，发送日志到指定邮箱。-s, --state=statefile ：使用指定的状态文件。-v, --verbose ：显示转储过程。 查看各log文件的具体执行情况 12root@iZwz9i9xmvw9w235xae84xZ:/# cd /var/lib/logrotate/root@iZwz9i9xmvw9w235xae84xZ:/var/lib/logrotate# vi status 后面你将会看到被切割的日志：]]></content>
       <categories>
-        <category>Linux</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
+        <tag>linux</tag>
         <tag>logrotate</tag>
       </tags>
   </entry>
@@ -102,11 +90,11 @@
     <url>%2F2018%2F11%2F02%2F%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%40Scheduled%2F</url>
     <content type="text"><![CDATA[1.开启定时任务123//需要在springboot启动类上加@EnableScheduling//开启定时任务@EnableAsync//异步事件处理，多线程并行执行 2.创建定时任务12345678910111213141516/* * * @Author luo * @Description 定时退房 * @Date 16:15 2018/11/1 */@Slf4j@Componentpublic class TimingCheckOutTask &#123; /** * 如果有退房申请 退房申请超过半个个小时还未处理，那么完成退房，更新入住下面的所有服务为完成，调清空入住信息接口 */ @Scheduled(cron = "0 0/30 * * * ? ") private void timingCheckOut() &#123; log.info("定时任务：退房申请超过半小时未处理自动退房……"); &#125;]]></content>
       <categories>
-        <category>定时任务相关</category>
+        <category>task</category>
       </categories>
       <tags>
         <tag>Scheduled</tag>
-        <tag>定时任务</tag>
+        <tag>task</tag>
       </tags>
   </entry>
   <entry>
@@ -114,7 +102,7 @@
     <url>%2F2018%2F11%2F02%2Fmysql%E5%AD%98%E5%82%A8emoji%2F</url>
     <content type="text"><![CDATA[2018-11-02更新在做留言处理的时候首先将数据库编码改为utf8mb4，字段用text或者longtext长文本。但是存emoji还是出现了问题，有办法，将客户端传来的参数加密放数据库，出来解密就行了。emoji解决。 如图：]]></content>
       <categories>
-        <category>数据库相关</category>
+        <category>mysql</category>
       </categories>
       <tags>
         <tag>mysql</tag>

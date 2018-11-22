@@ -87,12 +87,10 @@
 <meta property="og:site_name" content="L4XL">
 <meta property="og:description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true">
-<meta property="og:updated_time" content="2018-11-07T07:03:19.598Z">
+<meta property="og:updated_time" content="2018-11-22T07:14:19.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Synchronized对象锁的一个优化细节">
 <meta name="twitter:description" content="背景大家在使用 synchronized 关键字的时候，可能经常会这么写： 123synchronized (this) &amp;#123;  ...&amp;#125; 它的作用域是当前对象，锁的就是当前对象，谁拿到这个锁谁就可以运行它所控制的代码。当有一个明确的对象作为锁时，就可以这么写，但是当没有一个明确的对象作为锁，只想让一段代码同步时，可以创建一个特殊的变量（对象）来充当锁： 123456789pub">
-<meta name="twitter:image" content="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true">
 
 
 
@@ -385,20 +383,6 @@
 
       
       
-        <div class="post-gallery" itemscope="" itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox" href="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" rel="gallery_cjos96c45000ftcvpe1c8qi9x" itemscope="" itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://github.com/l4xl/l4xlblogimg/blob/master/gsl.jpg?raw=true" itemprop="contentUrl">
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
 
       
         <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>大家在使用 synchronized 关键字的时候，可能经常会这么写：</p>
@@ -540,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,7 +546,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
